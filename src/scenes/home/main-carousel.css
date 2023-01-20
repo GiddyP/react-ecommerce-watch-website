@@ -1,0 +1,58 @@
+.hosd{
+    width: 100%;
+    height: 100vh;
+    /* object-fit: cover; */
+    /* background-attachment: fixed; */
+    /* overflow: hidden; */
+    /* position: relative; */
+    background-image: url(../../assets/kelvin.jpg);
+    /* background-position: center; */
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: change 10s infinite ease-in-out;
+    transform: translateX(5px);
+}
+
+
+.images{
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    /* overflow: hidden;
+    position: relative; */
+    background-image: url(../../assets/kelvin.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: change 60s infinite alternate;
+}
+
+@keyframes change{
+    20%
+    {
+        background-image: url(../../assets/paul.jpg);
+    }
+    30%
+    {
+        background-image: url(../../assets/constantin.jpg);
+    }
+    50%
+    {
+        background-image: url(../../assets/toni.jpg);
+    }
+    70%
+    {
+        background-image: url(../../assets/deepal2.jpg);
+    }
+    80%
+    {
+        background-image: url(../../assets/josh-miller.jpg);
+    }
+    90%
+    {
+        background-image: url(../../assets/constantin2.jpg);
+    }
+ 
+   
+    
+}
