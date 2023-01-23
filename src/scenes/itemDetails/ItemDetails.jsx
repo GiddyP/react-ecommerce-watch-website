@@ -7,20 +7,25 @@ import Item from "../../components/Item";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { addToCart } from "../../state";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { tokens } from "../../theme2";
 import { ArrowBackIosNew } from "@mui/icons-material";
+import { watchList } from "../../constants";
 
 const ItemDetails = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const mobilePoint = useMediaQuery("(max-width:749px)");
   const smobilePoint = useMediaQuery("(max-width:370px)");
-  const [isPending, setIsPending] = useState(true);
+
+
+  // const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { itemId } = useParams();
+  const watchItems = useSelector((state) => state.cart.items);
+
   const [value, setValue] = useState("description");
   const [count, setCount] = useState(1);
   const [item, setItem] = useState(null);
@@ -31,44 +36,10 @@ const ItemDetails = () => {
     setValue(newValue);
   };
 
-  async function getItem() {
-    const item = await fetch(
-
-      `http://localhost:1337/api/watch-items/${itemId}`,
-      {
-        method: "GET",
-      }
-    )
-      .then(res => {
-        if (!res.ok) {
-          throw Error('could not fetch the data from backend');
-        }
-        setError(null);
-        return res.json();
-      })
-      .catch(err => {
-        setError(err.message);
-        // console.log(err.message);
-      });
-    setIsPending(false);
-    const itemJson = await item;
-    setItem(itemJson.data);
-  }
-
-  async function getItems() {
-    const items = await fetch(
-      "http://localhost:1337/api/watch-items",
-      { method: "GET" }
-    );
-    const itemsJson = await items.json();
-
-    dispatch(setItems(itemsJson.data));
-  }
-
 
   useEffect(() => {
-    getItem();
-    getItems();
+    setItems(watchItems);
+    setItem(watchItems[itemId - 1]);
   }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -76,8 +47,8 @@ const ItemDetails = () => {
       <Box
         display={smobilePoint ? "flex" : "none"}
         gap="5px"
-        alignItems="center" 
-        onClick={() => navigate(`/frontend-watch-ecommerce/`)}
+        alignItems="center"
+        onClick={() => navigate(`/`)}
         cursor="pointer"
         mb="15px"
       >
@@ -121,7 +92,7 @@ const ItemDetails = () => {
               padding: "10px 30px",
               "&:hover": { backgroundColor: '#3e64d6', }
             }}
-            href="https://giddyp.github.io/item/1"
+            href="https://ecommerce-website-giddyp.vercel.app/"
           >
             Refresh
           </a>
@@ -138,10 +109,10 @@ const ItemDetails = () => {
               alignItems="center"
             >
               <img
-                alt={item?.attributes?.name}
+                alt={item?.name}
                 width="80%"
                 height="80%"
-                src={item?.attributes?.url}
+                src={item?.imageUrl}
                 style={{ objectFit: "contain" }}
               />
             </Box>
@@ -158,7 +129,7 @@ const ItemDetails = () => {
                 display={smobilePoint ? "none" : "flex"}
                 gap="5px"
                 alignItems="center"
-                onClick={() => navigate(`/frontend-watch-ecommerce/`)}
+                onClick={() => navigate(`/`)}
                 cursor="pointer"
               >
                 <IconButton
@@ -180,11 +151,11 @@ const ItemDetails = () => {
                   variant="h5">Home</Typography>
               </Box>
               <Box m="0px 0 5px 0">
-                <Typography mb="5px">CATEGORIES: ({item?.attributes?.category})</Typography>
-                <Typography mb="4px" variant="h2">{item?.attributes?.name}</Typography>
-                <Typography variant="h5" fontWeight="600">#{item?.attributes?.price}</Typography>
+                <Typography mb="5px">CATEGORIES: ({item?.category})</Typography>
+                <Typography mb="4px" variant="h2">{item?.name}</Typography>
+                <Typography variant="h5" fontWeight="600">#{item?.price}</Typography>
                 <Typography sx={{ mt: "20px" }}>
-                  {item?.attributes?.longDesc}
+                  {item?.longDesc}
                 </Typography>
               </Box>
 
@@ -230,11 +201,11 @@ const ItemDetails = () => {
           <Box display="flex" flexWrap="wrap" gap="15px">
             {value === "description" && (
               <Box
-              >{item?.attributes?.description}</Box>
+              >{item?.description}</Box>
             )}
             {value === "reviews" && (
               <Box
-              >{item?.attributes?.reviews}</Box>
+              >{item?.reviews}</Box>
             )}
           </Box>
         </Box>
@@ -262,6 +233,7 @@ const ItemDetails = () => {
         </Box>
       </Box>
     </Box >
+    // <div>Hello</div>
   );
 };
 

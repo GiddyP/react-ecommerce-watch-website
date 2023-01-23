@@ -28,7 +28,7 @@ const CartMenu = () => {
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, item) => {
-    return total + item.count * item.attributes.price;
+    return total + item.count * item.price;
   }, 0);
 
   return (
@@ -63,14 +63,14 @@ const CartMenu = () => {
           {/* CART LIST */}
           <Box>
             {cart.map((item) => (
-              <Box key={`${item.attributes.name}-${item.id}`}>
+              <Box key={`${item.name}-${item.id}`}>
                 <FlexBox p="15px 0">
                   <Box flex="1 1 40%">
                     <img
                       alt={item?.name}
                       width="123px"
                       height="164px"
-                      src={item?.attributes?.url}
+                      src={item?.imageUrl}
                       style={{
                         objectFit: "contain",
                       }}
@@ -79,7 +79,7 @@ const CartMenu = () => {
                   <Box flex="1 1 60%">
                     <FlexBox mb="5px">
                       <Typography color='#151515' fontWeight="bold">
-                        {item.attributes.name}
+                        {item?.name}
                       </Typography>
                       <IconButton
                         sx={{ color: '#151515' }}
@@ -90,7 +90,7 @@ const CartMenu = () => {
                         <CloseIcon />
                       </IconButton>
                     </FlexBox>
-                    <Typography color='#151515'>{item.attributes.shortDesc}</Typography>
+                    <Typography color='#151515'>{item?.shortDesc}</Typography>
                     {/* AMOUNT  */}
                     <FlexBox m="15px 0">
                       <Box
@@ -122,7 +122,7 @@ const CartMenu = () => {
                         fontWeight="bold"
                         mr="5px"
                       >
-                        #{item.attributes.price}
+                        #{item?.price}
                       </Typography>
                     </FlexBox>
                   </Box>
@@ -150,7 +150,7 @@ const CartMenu = () => {
                 minWidth: "100%",
                 padding: "20px 40px",
                 m: "20px 0",
-                "&:hover": {backgroundColor: '#767676',}
+                "&:hover": { backgroundColor: '#767676', }
               }}
               onClick={() => {
                 navigate("/checkout");

@@ -8,9 +8,7 @@ import { Button, Typography, useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { setItems } from "../../state";
-// console.log(setItems)
 import { tokens } from "../../theme2";
-import { Link } from "react-router-dom";
 
 import sanityClient from "../../client.js";
 
@@ -32,30 +30,6 @@ const ShoppingList = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  // async function getItems() {
-  //   const items = await fetch(
-  //     // "https://strapi-production-c72c.up.railway.app/api/watch-items",
-  //     "http://localhost:1337/api/watch-items?populate=image",
-  //     { method: "GET" }
-  //   )
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         throw Error('could not fetch the data from backend');
-  //       }
-  //       setError(null);
-  //       return res.json();
-  //     })
-  //     .catch(err => {
-  //       setError(err.message);
-  //       // console.log(err.message);
-  //     });
-  //   setIsPending(false);
-  //   const itemsJson = await items;
-  //   dispatch(setItems(itemsJson.data[0]));
-  //   // console.log(itemsJson);
-  // }
-  // console.log(watchItems)
 
   function getItems() {
     sanityClient.fetch(
@@ -82,26 +56,6 @@ const ShoppingList = () => {
       });
     setIsPending(false);
   }
-  // console.log(postData);
-  // console.log(watchItems);
-
-  // useEffect(() => {
-  //   sanityClient.fetch(
-  //     `*[_type == "watchProject"]{
-  //          id,
-  //          name,
-  //          longDesc,
-  //          shortDesc,
-  //          price,
-  //          category,
-  //          description,
-  //          imageUrl,
-  //          reviews,
-  //         }`).then((data) => setPostData(data))
-  //     .catch(console.error);
-  // }, []);// eslint-disable-line react-hooks/exhaustive-deps
-
-  // console.log(postData);
 
   useEffect(() => {
     getItems();
@@ -192,7 +146,7 @@ const ShoppingList = () => {
             padding: "10px 30px",
             "&:hover": { backgroundColor: '#3e64d6', }
           }}
-          href="https://giddyp.github.io/frontend-watch-ecommerce/"
+          href="https://ecommerce-website-giddyp.vercel.app/"
         >
           Refresh
         </a>

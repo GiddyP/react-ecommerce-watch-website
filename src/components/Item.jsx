@@ -20,7 +20,7 @@ const Item = ({ item, width }) => {
   } = useTheme();
 
   // Dstructure params from attributes 
-  const { category, price, name, imageUrl, id } = item;
+  const { category, price, name, imageUrl} = item;
 
   let fLCapital = s => s = s.charAt(0).toUpperCase() + s.slice(1);
 
@@ -42,7 +42,7 @@ const Item = ({ item, width }) => {
           width="200px"
           height="290px"
           src={imageUrl}
-          onDoubleClick={() => navigate(`/item/${id}`)}
+          onDoubleClick={() => navigate(`/item/${item.id}`)}
           style={{ cursor: "pointer", objectFit: "contain" }}
         />
         {/* counter and likes */}
@@ -131,7 +131,7 @@ const Item = ({ item, width }) => {
           color={colors.primary[100]}
           fontWeight="bold">#{price}</Typography>
         <Typography
-          onClick={() => navigate(`/item/${id}`)}
+          onClick={() => navigate(`/item/${item.id}`)}
           variant="h5"
           color={colors.primary[100]}
           pb="3px"
