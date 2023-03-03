@@ -66,7 +66,7 @@ function Navbar() {
   window.addEventListener('scroll', scrollHeader);
 
   return (
-    <Box
+    <Box  
       backgroundColor="transparent"
       display="flex"
       flexDirection="column"
